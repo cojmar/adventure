@@ -107,12 +107,12 @@ new class {
       message_top: document.querySelector('.message_top'),
       message_bottom: document.querySelector('.message_bottom'),
       input: document.querySelector('input[type=text]'),
-      button: document.querySelector('button')
+      send_button: document.querySelector('.send_button')
     }
     this.dom.input.addEventListener('keyup', k => {
       if (k.key === 'Enter') this.do_dialogue(this.dom.input.value)
     })
-    this.dom.button.addEventListener('click', e => this.do_dialogue(this.dom.input.value))
+    this.dom.send_button.addEventListener('click', e => this.do_dialogue(this.dom.input.value))
     document.querySelectorAll('.action-button').forEach(e => e.addEventListener('click', _ => this.do_dialogue(e.getAttribute(`data-action`))))
 
     document.querySelector('.new_game').addEventListener('click', _ => this.init_game())
