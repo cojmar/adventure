@@ -124,7 +124,7 @@ new class {
     // Create a new SpeechSynthesisUtterance object
     let utterance = new SpeechSynthesisUtterance()
     // Set the text and voice of the utterance
-    utterance.text = text.split('.').join(', , ,')
+    utterance.text = text.split('.').join(', , ,').split('<br>').join('')
     utterance.voice = window.speechSynthesis.getVoices()[0]
     // Speak the utterance
     window.speechSynthesis.cancel()
