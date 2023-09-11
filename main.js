@@ -24,7 +24,6 @@ new class {
   }
 
   init_game() {
-
     this.game = adventure.makeState()
     this.game.advance()
     let ret = this.game.advance("yes")
@@ -103,6 +102,7 @@ new class {
   }
 
   init_dom() {
+    window.speechSynthesis.cancel()
     this.dom = {
       message_top: document.querySelector('.message_top'),
       message_bottom: document.querySelector('.message_bottom'),
