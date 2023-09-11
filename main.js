@@ -50,6 +50,8 @@ new class {
     let tmp = this.game.advance(dialogue)
     tmp.pop()
     this.game_data.dialogue.description = tmp.join('<br>')
+    this.dom.input.value = ''
+    this.dom.input.focus()
     this.render()
   }
 
@@ -103,15 +105,9 @@ new class {
       button: document.querySelector('button')
     }
     this.dom.input.addEventListener('keyup', k => {
-      if (k.key === 'Enter') {
-        this.do_dialogue(this.dom.input.value)
-        this.dom.input.value = ''
-      }
+      if (k.key === 'Enter') this.do_dialogue(this.dom.input.value)
     })
-    this.dom.button.addEventListener('click', e => {
-      this.do_dialogue(this.dom.input.value)
-      this.dom.input.value = ''
-    })
+    this.dom.button.addEventListener('click', e => this.do_dialogue(this.dom.input.value))
     document.querySelectorAll('.action-button').forEach(e => e.addEventListener('click', _ => this.do_dialogue(e.getAttribute(`data-action`))))
   }
 
