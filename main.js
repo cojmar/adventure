@@ -17,11 +17,14 @@ const res = {
 
 new class {
   constructor() {
-    this.init_dom()
-    this.init_game()
+    document.addEventListener("DOMContentLoaded", e => {
+      this.init_dom()
+      this.init_game()
+    })
   }
 
   init_game() {
+
     this.game = adventure.makeState()
     this.game.advance()
     let ret = this.game.advance("yes")
@@ -111,6 +114,22 @@ new class {
     document.querySelectorAll('.action-button').forEach(e => e.addEventListener('click', _ => this.do_dialogue(e.getAttribute(`data-action`))))
     this.dom.input.focus()
   }
+  random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  text_to_speatch(text) {
+    window.speechSynthesis.cancel()
+    // Create a new SpeechSynthesisUtterance object
+    let utterance = new SpeechSynthesisUtterance()
+    // Set the text and voice of the utterance
+    utterance.text = text;
+    utterance.voice = window.speechSynthesis.getVoices()[2]
+
+    // Speak the utterance
+
+    window.speechSynthesis.speak(utterance)
+  }
 
   render() {
     this.get_game_data()
@@ -128,8 +147,11 @@ new class {
       this.dom.message_bottom.innerHTML = this.game_data.dialogue.description
     }
 
+    let text = (this.last_location !== this.game_data.location.id) ? (this.dom.message_top.innerHTML + this.dom.message_bottom.innerHTML).split('<br>').join('') : this.dom.message_bottom.innerHTML.split('<br>').join('')
+    this.text_to_speatch(text)
     document.body.style.backgroundImage = `url('assets/locations/${this.game_data.location.id}.jpg')`;
     console.log(JSON.stringify(this.game_data, null, 2))
+    this.last_location = this.game_data.location.id
   }
 }
 
