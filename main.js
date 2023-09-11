@@ -12,7 +12,7 @@ const res = {
   items: res3.items,
 }
 
-console.log(res2.longDescriptions.map(v => v.join('')))
+//console.log(res2.longDescriptions.map(v => v.join('')))
 //console.log(res)
 
 new class {
@@ -68,6 +68,7 @@ new class {
     this.game_data.location.items = ret.map(i => {
       return {
         id: res.items.findIndex(ii => ii.indexOf(i) !== -1),
+        name: res.items.find(ii => ii.indexOf(i) !== -1)[0],
         description: i
       }
     })
@@ -88,7 +89,7 @@ new class {
     this.game_data.inventory = ret.map(i => {
       return {
         id: res.items.findIndex(ii => ii.indexOf(i) !== -1),
-        description: i
+        name: i
       }
     })
 
@@ -117,8 +118,10 @@ new class {
   render() {
     this.get_game_data()
     this.dom.message_bottom.innerHTML = ''
-    if (this.game.isDone()) {
-      this.dom.message_top.innerHTML = 'Game Over'
+
+    if (!this.game_data.location.description && !this.game_data.dialogue.description) {
+      this.dom.message_top.innerHTML = 'Refresh to restart'
+      this.dom.message_bottom.innerHTML = 'Game Over'
     }
     else if (this.game_data.dialogue.id === -1) {
       this.dom.message_top.innerHTML = this.game_data.dialogue.description
