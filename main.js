@@ -10,7 +10,7 @@ const res = {
   locations: res2.longDescriptions.map(v => v.join('<br>')),
 }
 
-console.log(res)
+//console.log(res)
 
 new class {
   constructor() {
