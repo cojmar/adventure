@@ -56,11 +56,11 @@ input {
   font-family: inherit;
   background-color: #1a1a1a;
   font-size: 20px;
-  min-height: 40px;
 }
 
 input {
-  width: calc(100% - 6px);
+  width: calc(100% - 56px);
+  min-height: 40px;
 }
 
 .inputs {
@@ -70,8 +70,9 @@ input {
 }
 
 button {
-  margin-left: 6px;
-  position: absolute;
+  margin-left: 2px;
+
+  float: right;
 }
 
 

@@ -46,6 +46,7 @@ new class {
   }
 
   do_dialogue(dialogue) {
+    if (!dialogue) dialogue = 'look'
     let tmp = this.game.advance(dialogue)
     tmp.pop()
     this.game_data.dialogue.description = tmp.join('<br>')
@@ -110,6 +111,7 @@ new class {
       this.do_dialogue(this.dom.input.value)
       this.dom.input.value = ''
     })
+    document.querySelectorAll('.action-button').forEach(e => e.addEventListener('click', _ => this.do_dialogue(e.getAttribute(`data-action`))))
   }
 
   render() {
