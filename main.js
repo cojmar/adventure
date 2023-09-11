@@ -17,10 +17,10 @@ const res = {
 
 new class {
   constructor() {
-    document.addEventListener("DOMContentLoaded", e => {
-      this.init_dom()
-      this.init_game()
-    })
+
+    this.init_dom()
+    //this.init_game()
+
   }
 
   init_game() {
@@ -97,7 +97,9 @@ new class {
         name: i
       }
     })
-
+    document.querySelector('#loader').style.display = 'none'
+    document.querySelector('#app').style.display = 'block'
+    this.dom.input.focus()
   }
 
   init_dom() {
@@ -112,22 +114,20 @@ new class {
     })
     this.dom.button.addEventListener('click', e => this.do_dialogue(this.dom.input.value))
     document.querySelectorAll('.action-button').forEach(e => e.addEventListener('click', _ => this.do_dialogue(e.getAttribute(`data-action`))))
-    this.dom.input.focus()
-  }
-  random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min)
+
+    document.querySelector('.new_game').addEventListener('click', _ => this.init_game())
   }
 
+
   text_to_speatch(text) {
-    window.speechSynthesis.cancel()
+
     // Create a new SpeechSynthesisUtterance object
     let utterance = new SpeechSynthesisUtterance()
     // Set the text and voice of the utterance
     utterance.text = text;
     utterance.voice = window.speechSynthesis.getVoices()[2]
-
     // Speak the utterance
-
+    window.speechSynthesis.cancel()
     window.speechSynthesis.speak(utterance)
   }
 
