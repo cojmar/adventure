@@ -46,7 +46,7 @@ h1 {
   margin: 0 auto;
   text-align: center;
   background-color: #2424248c;
-  padding: 2px;
+  padding: 4px;
 }
 
 button,
@@ -60,7 +60,7 @@ input {
 }
 
 input {
-  width: calc(100% - 10px);
+  width: calc(100% - 6px);
 }
 
 .inputs {
@@ -70,7 +70,7 @@ input {
 }
 
 button {
-  margin-left: 2px;
+  margin-left: 6px;
   position: absolute;
 }
 
