@@ -12,6 +12,7 @@ const res = {
   items: res3.items,
 }
 
+console.log(res2.longDescriptions.map(v => v.join('')))
 //console.log(res)
 
 new class {
@@ -125,6 +126,7 @@ new class {
       this.dom.message_bottom.innerHTML = this.game_data.dialogue.description
     }
 
+    document.body.style.backgroundImage = `url('assets/locations/${this.game_data.location.id}.jpg')`;
     console.log(JSON.stringify(this.game_data, null, 2))
   }
 }

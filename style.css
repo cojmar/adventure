@@ -30,6 +30,11 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url('assets/locations/1.jpg');
+  background-size: cover;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 h1 {
@@ -41,6 +46,7 @@ h1 {
   max-width: 1280px;
   margin: 0 auto;
   text-align: center;
+  background-color: #2424248c;
 }
 
 button,
