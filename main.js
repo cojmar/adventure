@@ -35,7 +35,11 @@ new class {
       dialogue: {
         id: -1,
         description: ret.join('<br>')
-      }
+      },
+      inventory: [
+
+      ]
+
     }
     this.render()
   }
@@ -67,6 +71,25 @@ new class {
     })
     this.game_data.dialogue.id = res.dialogue.indexOf(this.game_data.dialogue.description)
     this.game_data.location.id = res.locations.indexOf(this.game_data.location.description)
+
+    tmp_data = this.game.advance('inventory').splice(2)
+    r = []
+    ret = []
+    tmp_data.map(l => {
+      if (l !== '') r.push(l)
+      else {
+        ret.push(r.join('<br>'))
+        r = []
+      }
+    })
+
+    this.game_data.inventory = ret.map(i => {
+      return {
+        id: res.items.findIndex(ii => ii.indexOf(i) !== -1),
+        description: i
+      }
+    })
+
   }
 
   init_dom() {
