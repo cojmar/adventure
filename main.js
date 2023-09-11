@@ -124,8 +124,8 @@ new class {
     // Create a new SpeechSynthesisUtterance object
     let utterance = new SpeechSynthesisUtterance()
     // Set the text and voice of the utterance
-    utterance.text = text.split('.').join(' ');
-    utterance.voice = window.speechSynthesis.getVoices()[2]
+    utterance.text = text.split('.').join(', , ,')
+    utterance.voice = window.speechSynthesis.getVoices()[0]
     // Speak the utterance
     window.speechSynthesis.cancel()
     window.speechSynthesis.speak(utterance)
@@ -147,7 +147,7 @@ new class {
       this.dom.message_bottom.innerHTML = this.game_data.dialogue.description
     }
 
-    let text = (this.last_location !== this.game_data.location.id) ? (this.dom.message_top.innerHTML + this.dom.message_bottom.innerHTML).split('<br>').join('') : this.dom.message_bottom.innerHTML.split('<br>').join('')
+    let text = (this.last_location !== this.game_data.location.id) ? this.dom.message_top.innerHTML + this.dom.message_bottom.innerHTML : this.dom.message_bottom.innerHTML
     this.text_to_speatch(text)
     document.body.style.backgroundImage = `url('assets/locations/${this.game_data.location.id}.jpg')`;
     console.log(JSON.stringify(this.game_data, null, 2))
