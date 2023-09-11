@@ -109,6 +109,7 @@ new class {
     })
     this.dom.button.addEventListener('click', e => this.do_dialogue(this.dom.input.value))
     document.querySelectorAll('.action-button').forEach(e => e.addEventListener('click', _ => this.do_dialogue(e.getAttribute(`data-action`))))
+    this.dom.input.focus()
   }
 
   render() {
