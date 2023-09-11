@@ -120,7 +120,6 @@ new class {
 
 
   text_to_speatch(text) {
-
     // Create a new SpeechSynthesisUtterance object
     let utterance = new SpeechSynthesisUtterance()
     // Set the text and voice of the utterance
