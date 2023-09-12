@@ -164,7 +164,7 @@ new class {
 
     let text = (this.last_location !== this.game_data.location.id) ? this.dom.message_top.innerHTML + this.dom.message_bottom.innerHTML : this.dom.message_bottom.innerHTML
     this.text_to_speatch(text)
-    document.body.style.backgroundImage = `url('assets/locations/${this.game_data.location.id}.jpg')`;
+    document.body.style.backgroundImage = `url('assets/locations/${this.game_data.location.id}.png')`;
     console.log(JSON.stringify(this.game_data, null, 2))
     this.last_location = this.game_data.location.id
   }
