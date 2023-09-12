@@ -3,16 +3,18 @@ import adventure from 'adventurejs'
 import res1 from './node_modules/adventurejs/src/vars/dialogue.json'
 import res2 from './node_modules/adventurejs/src/vars/longCave.json'
 import res3 from './node_modules/adventurejs/src/vars/items.json'
+import res4 from './node_modules/adventurejs/src/vars/shortCave.json'
 
 
 
 const res = {
   dialogue: res1.dialogue.map(v => v.join('<br>')),
   locations: res2.longDescriptions.map(v => v.join('<br>')),
+  short_desc: res4.shortDescriptions.map(v => v.join('<br>')),
   items: res3.items,
 }
 
-//console.log(res2.longDescriptions.map(v => v.join('')))
+//console.log(res3.items.map((v, k) => v.map((vv, kk) => `${k}${kk}.mp3\t\t${vv}`).join("\n")).join("\n"))
 //console.log(res)
 
 new class {
@@ -22,34 +24,49 @@ new class {
     //this.init_game()
 
   }
+  advance(txt) {
+    let old_data = {
+      loc: this.game.loc,
+      visited: Object.assign([], this.game.visited)
+    }
+    let ret = this.game.advance(txt)
+    if (old_data.loc !== this.game.loc) this.game_data.location.visited = old_data.visited[this.game.loc]
+    this.game_data.location.id = this.game.loc
+    this.game_data.location.description = (this.game_data.location.visited) ? res.short_desc[this.game.loc] : res.locations[this.game.loc]
 
+
+    return ret
+  }
   init_game() {
-    this.game = adventure.makeState()
-    this.game.advance()
-    let ret = this.game.advance("yes")
-    for (let i = 0; i <= 5; i++)  this.game.advance('look')
-    ret.pop()
     this.game_data = {
       location: {
         id: -1,
+        visited: 0,
         description: '',
         items: []
       },
       dialogue: {
         id: -1,
-        description: ret.join('<br>')
+        description: ''
       },
       inventory: [
-
       ]
-
     }
+    this.game = adventure.makeState()
+    this.advance()
+    let ret = this.advance("yes")
+    for (let i = 0; i <= 5; i++)  this.advance('look')
+    ret.pop()
+    this.game_data.dialogue.description = ret.join('<br>')
+    document.querySelector('#loader').style.display = 'none'
+    document.querySelector('#app').style.display = 'block'
+    this.dom.input.focus()
     this.render()
   }
 
   do_dialogue(dialogue) {
     if (!dialogue) dialogue = 'look'
-    let tmp = this.game.advance(dialogue)
+    let tmp = this.advance(dialogue)
     tmp.pop()
     this.game_data.dialogue.description = tmp.join('<br>')
     this.dom.input.value = ''
@@ -58,7 +75,8 @@ new class {
   }
 
   get_game_data() {
-    let tmp_data = this.game.advance('look')
+
+    let tmp_data = this.advance('look')
     let r = []
     let ret = []
     tmp_data.map(l => {
@@ -68,7 +86,7 @@ new class {
         r = []
       }
     })
-    this.game_data.location.description = ret.shift()
+    ret.shift()
     this.game_data.location.items = ret.map(i => {
       return {
         id: res.items.findIndex(ii => ii.indexOf(i) !== -1),
@@ -79,7 +97,7 @@ new class {
     this.game_data.dialogue.id = res.dialogue.indexOf(this.game_data.dialogue.description)
     this.game_data.location.id = res.locations.indexOf(this.game_data.location.description)
 
-    tmp_data = this.game.advance('inventory').splice(2)
+    tmp_data = this.advance('inventory').splice(2)
     r = []
     ret = []
     tmp_data.map(l => {
@@ -96,9 +114,7 @@ new class {
         name: i
       }
     })
-    document.querySelector('#loader').style.display = 'none'
-    document.querySelector('#app').style.display = 'block'
-    this.dom.input.focus()
+
   }
 
   init_dom() {
