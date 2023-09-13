@@ -88,9 +88,11 @@ new class {
     })
     ret.shift()
     this.game_data.location.items = ret.map(i => {
+      let item = res.items.find(ii => ii.indexOf(i) !== -1)
+      item = (item) ? item[0] : ''
       return {
         id: res.items.findIndex(ii => ii.indexOf(i) !== -1),
-        name: res.items.find(ii => ii.indexOf(i) !== -1)[0],
+        name: item,
         description: i
       }
     })
