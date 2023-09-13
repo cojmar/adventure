@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "make_jpg": "node make_jpg.js",
-    "dev": "npm run make_jpg && vite",
+    "dev": "vite",
     "build": "npm run make_jpg && vite build",
     "preview": "npm run make_jpg && vite preview"
   },
